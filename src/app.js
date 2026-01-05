@@ -1,20 +1,36 @@
-import contextMenu from "electron-context-menu";
-import {
+// import contextMenu from "electron-context-menu";
+// import {
+//   app,
+//   BrowserWindow,
+//   ipcMain,
+//   dialog,
+//   globalShortcut,
+//   shell,
+// } from "electron";
+// import path from "path";
+// import fs from "fs";
+// import { updateElectronApp } from "update-electron-app";
+// updateElectronApp();
+
+const contextMenu = require("electron-context-menu");
+const {
   app,
   BrowserWindow,
   ipcMain,
   dialog,
   globalShortcut,
   shell,
-} from "electron";
-import path from "path";
-import fs from "fs";
+  Menu,
+} = require("electron");
+const path = require("path");
+const fs = require("fs");
+require("update-electron-app")();
 
 var fsPromises = fs.promises;
 let mainWindow;
 app.commandLine.appendSwitch("log-level", "3");
-const __dirname = app.getAppPath();
-var preload_path = path.join(__dirname, "preload.js");
+const dirname = app.getAppPath();
+var preload_path = path.join(dirname, "preload.js");
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -38,7 +54,7 @@ function createWindow() {
     showInspectElement: true,
   });
 
-  mainWindow.loadFile(path.join(__dirname, "index.html"));
+  mainWindow.loadFile(path.join(dirname, "../index.html"));
   mainWindow.maximize();
   ipcMain.on("show-context-menu", (event, params) => {
     const contextMenu = Menu.buildFromTemplate([

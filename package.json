@@ -1,49 +1,61 @@
 {
   "name": "local-movies-list",
   "version": "1.0.0",
-  "main": "app.js",
-  "type": "module",
+  "main": "src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/punithashunmugam4/local-movies-list-electron-app.git"
-  },
+  "keywords": [],
   "author": "Punitha",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/punithashunmugam4/local-movies-list-electron-app/issues"
-  },
-  "homepage": "https://github.com/punithashunmugam4/local-movies-list-electron-app#readme",
-  "description": "",
-  "dependencies": {
-    "better-sqlite3": "12.5.0",
-    "bunyan": "^1.8.15",
-    "bunyan-rotating-file-stream": "2.0.6",
-    "clear-module": "4.1.2",
-    "dialog": "0.3.1",
-    "electron": "^39.2.7",
-    "electron-context-menu": "^4.1.1",
-    "electron-log": "5.4.3",
-    "electron-reload": "latest",
-    "electron-store": "11.0.2",
-    "find-remove": "5.1.1",
-    "http": "latest",
-    "https": "latest",
-    "https-proxy-agent": "7.0.6",
-    "json5": "2.2.3",
-    "node-fetch": "latest",
-    "node-schedule": "latest",
-    "request": "latest",
-    "require-from-url": "latest",
-    "screenshot-desktop": "1.15.3",
-    "ws": "latest",
-    "xhr2": "0.2.1"
-  },
+  "description": "This app gives the movies list in my local PC",
   "devDependencies": {
-    "electron": "^39.2.7",
-    "electron-builder": "latest"
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "electron-forge": "^5.2.4",
+    "electron-prebuilt-compile": "8.2.0",
+    "electron-squirrel-startup": "^1.0.1"
+  },
+  "dependencies": {
+    "electron-compile": "^6.4.4",
+    "electron-context-menu": "^3.6.1",
+    "update-electron-app": "^2.0.1"
+  },
+  "config": {
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
+      },
+      "electronPackagerConfig": {
+        "packageManager": "npm"
+      },
+      "electronWinstallerConfig": {
+        "name": "local_movies_list"
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {},
+      "github_repository": {
+        "owner": "",
+        "name": ""
+      },
+      "windowsStoreConfig": {
+        "packageName": "",
+        "name": "localmovieslist"
+      }
+    }
   }
 }
