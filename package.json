@@ -24,6 +24,7 @@
   "dependencies": {
     "electron-compile": "^6.4.4",
     "electron-context-menu": "^3.6.1",
+    "electron-log": "^5.4.3",
     "update-electron-app": "^2.0.1"
   },
   "config": {

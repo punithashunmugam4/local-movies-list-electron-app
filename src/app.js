@@ -24,13 +24,17 @@ const {
 } = require("electron");
 const path = require("path");
 const fs = require("fs");
-require("update-electron-app")();
+require("update-electron-app")({
+  repo: 'punithashunmugam4/local-movies-list-electron-app', 
+  updateInterval: '5 minutes',
+  logger: require('electron-log')
+});
 
 var fsPromises = fs.promises;
 let mainWindow;
 app.commandLine.appendSwitch("log-level", "3");
 const dirname = app.getAppPath();
-var preload_path = path.join(dirname, "preload.js");
+var preload_path = path.join(dirname, "./preload.js");
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -54,7 +58,7 @@ function createWindow() {
     showInspectElement: true,
   });
 
-  mainWindow.loadFile(path.join(dirname, "../index.html"));
+  mainWindow.loadFile(path.join(dirname, "./index.html"));
   mainWindow.maximize();
   ipcMain.on("show-context-menu", (event, params) => {
     const contextMenu = Menu.buildFromTemplate([
@@ -170,7 +174,7 @@ ipcMain.handle("get-all-folders", async () => {
 
 ipcMain.handle("open-path", async (_, filePath) => {
   try {
-    const result = await shell.openPath(filePath);
+    const result = await shell.openItem(filePath);
     if (typeof result === "string" && result.length) {
       console.error("shell.openPath error:", result);
       return { success: false, error: result };
