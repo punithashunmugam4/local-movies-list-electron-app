@@ -1,62 +1,50 @@
 {
   "name": "local-movies-list",
   "version": "1.0.0",
-  "main": "src/app.js",
+  "main": "app.js",
+  "authors": "Punitha",
+  "publisher": "Punitha",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish"
+    "start": "electron .",
+    "postinstall": "electron-builder install-app-deps",
+    "app:dir": "electron-builder --dir",
+    "app:dist": "electron-builder"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/punithashunmugam4/local-movies-list-electron-app.git"
+  },
   "author": "Punitha",
   "license": "ISC",
-  "description": "This app gives the movies list in my local PC",
+  "bugs": {
+    "url": "https://github.com/punithashunmugam4/local-movies-list-electron-app/issues"
+  },
+  "homepage": "https://github.com/punithashunmugam4/local-movies-list-electron-app#readme",
+  "description": "",
   "devDependencies": {
-    "babel-plugin-transform-async-to-generator": "^6.24.1",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "electron-forge": "^5.2.4",
-    "electron-prebuilt-compile": "8.2.0",
-    "electron-squirrel-startup": "^1.0.1"
+    "electron": "^39.2.7",
+    "electron-builder": "^26.0.12"
   },
   "dependencies": {
-    "electron-compile": "^6.4.4",
-    "electron-context-menu": "^3.6.1",
+    "clear-module": "^4.1.2",
+    "electron-context-menu": "^4.1.1",
     "electron-log": "^5.4.3",
-    "update-electron-app": "^2.0.1"
+    "electron-reload": "^2.0.0-alpha.1",
+    "electron-store": "^11.0.2"
   },
-  "config": {
-    "forge": {
-      "make_targets": {
-        "win32": [
-          "squirrel"
-        ],
-        "darwin": [
-          "zip"
-        ],
-        "linux": [
-          "deb",
-          "rpm"
-        ]
-      },
-      "electronPackagerConfig": {
-        "packageManager": "npm"
-      },
-      "electronWinstallerConfig": {
-        "name": "local_movies_list"
-      },
-      "electronInstallerDebian": {},
-      "electronInstallerRedhat": {},
-      "github_repository": {
-        "owner": "",
-        "name": ""
-      },
-      "windowsStoreConfig": {
-        "packageName": "",
-        "name": "localmovieslist"
-      }
+  "build": {
+    "appId": "local-movies-list",
+    "mac": {
+      "category": "your.app.category.type"
+    },
+     "publish": [
+    {
+      "provider": "github",
+      "owner": "punithashunmugam4",
+      "repo": "local-movies-list-electron-app"
     }
+  ]
   }
 }

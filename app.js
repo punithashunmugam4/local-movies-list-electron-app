@@ -1,40 +1,21 @@
-// import contextMenu from "electron-context-menu";
-// import {
-//   app,
-//   BrowserWindow,
-//   ipcMain,
-//   dialog,
-//   globalShortcut,
-//   shell,
-// } from "electron";
-// import path from "path";
-// import fs from "fs";
-// import { updateElectronApp } from "update-electron-app";
-// updateElectronApp();
-
-const contextMenu = require("electron-context-menu");
-const {
+import contextMenu from "electron-context-menu";
+import {
   app,
   BrowserWindow,
   ipcMain,
   dialog,
   globalShortcut,
   shell,
-  Menu,
-} = require("electron");
-const path = require("path");
-const fs = require("fs");
-require("update-electron-app")({
-  repo: 'punithashunmugam4/local-movies-list-electron-app', 
-  updateInterval: '5 minutes',
-  logger: require('electron-log')
-});
+} from "electron";
+import path from "path";
+import fs from "fs";
+import { autoUpdater } from "electron-updater";
 
 var fsPromises = fs.promises;
 let mainWindow;
 app.commandLine.appendSwitch("log-level", "3");
 const dirname = app.getAppPath();
-var preload_path = path.join(dirname, "./preload.js");
+var preload_path = path.join(dirname, "preload.js");
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -58,7 +39,7 @@ function createWindow() {
     showInspectElement: true,
   });
 
-  mainWindow.loadFile(path.join(dirname, "./index.html"));
+  mainWindow.loadFile(path.join(dirname, "index.html"));
   mainWindow.maximize();
   ipcMain.on("show-context-menu", (event, params) => {
     const contextMenu = Menu.buildFromTemplate([
@@ -74,6 +55,9 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  if (app.isPackaged) {
+    autoUpdater.checkForUpdatesAndNotify();
+  }
   createWindow();
   app.on("activate", function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
@@ -174,7 +158,7 @@ ipcMain.handle("get-all-folders", async () => {
 
 ipcMain.handle("open-path", async (_, filePath) => {
   try {
-    const result = await shell.openItem(filePath);
+    const result = await shell.openPath(filePath);
     if (typeof result === "string" && result.length) {
       console.error("shell.openPath error:", result);
       return { success: false, error: result };
